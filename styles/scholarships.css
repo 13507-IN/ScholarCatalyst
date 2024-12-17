@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Header styling */
+h1 {
+    text-align: center;
+    color: #444;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+/* Scholarships section */
+.scholarships {
+    display: flex;
+    flex-wrap: wrap; /* Ensure responsiveness */
+    align-items: center;
+    justify-content: space-between; /* Space out content */
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Image styling */
+.scholarships img {
+    max-width: 100%;
+    height: auto;
+    width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+}
+
+/* Link styling */
+.scholarships a {
+    flex-grow: 1; /* Make links take the available space */
+    color: #007BFF;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+/* Link hover effect */
+.scholarships a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .scholarships {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        text-align: center;
+    }
+
+    .scholarships img {
+        margin: 0 auto 15px;
+    }
+
+    .scholarships a {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .scholarships a {
+        font-size: 0.9rem;
+    }
+}

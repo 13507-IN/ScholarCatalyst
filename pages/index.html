@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScholarCatalyst</title>  
+    <link rel="stylesheet" href="/styles/style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Agu+Display:wght@400;600&family=Playfair+Display:wght@400;700&display=swap">
+</head>
+<body class="light-mode">
+    <header>
+        <div class="logo">ScholarCatalyst</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="/pages/scholarships.html">Scholarships</a>
+            <a href="/pages/profileStudent.html">Apply Now</a>
+            <a href="#contact">Contact</a>
+            <a href="#about">About Us</a>
+            <a href="/pages/community.html">Community</a>
+        </nav>
+        <!-- <div class="toggle-container">
+            <button id="themeToggle" class="toggle-button">Switch to Dark Mode</button>
+        </div> -->
+    </header>
+
+    <section class="hero">
+        <h1>Smart? Broke? We are here to help!</h1>
+        <p>Search, sort, and apply for scholarships easily. Connect with providers and achieve your dreams!</p>
+        <a href="#apply" class="cta-button" id="getStartedButton">Get Started</a>
+    </section>
+
+    <section id="features" class="features">
+        <div class="feature">
+            <h3>Easy Search</h3>
+            <p>Find scholarships based on your needs, field of study, and preferences.</p>
+        </div>
+        <div class="feature">
+            <h3>Compare Options</h3>
+            <p>Sort and compare scholarships to make the best choice for your future.</p>
+        </div>
+        <div class="feature">
+            <h3>Apply Instantly</h3>
+            <p>Submit your application directly through our platform hassle-free.</p>
+        </div>
+        <div class="feature">
+            <h3>Connect with Providers</h3>
+            <p>Reach out to scholarship providers and ask questions easily.</p>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="about">
+        <div class="about-container">
+            <div class="about-content">
+                <h2>About Us</h2>
+                <p>
+                    Welcome to <strong></bold>ScholarCatalyst</strong>! We are a dedicated team focused on offering high-quality services and creating meaningful opportunities for individuals. 
+                    Our mission is to empower people with the tools, support, and connections they need to succeed in their personal and professional journeys.
+                </p>
+                <p>
+                    Whether you are a student, professional, or simply passionate about growth, we are here to help you achieve your goals. Feel free to contact us with any questions or feedback.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <p>If you have any questions, feel free to get in touch with us!</p>
+        <form id="contactForm" class="contact-form">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="message" placeholder="Your Message" required></textarea>
+            <button type="submit" id="submitBtn">Submit</button>
+        </form>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 ScholarCatalyst. All Rights Reserved.</p>
+            <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script src="/scripts/script.js"></script>
+    <script src="/scripts/firebase-config.js"></script>
+    <script src="/scripts/auth.js"></script>
+    <script src="/scripts/contact.js"></script>
+</body>
+</html>

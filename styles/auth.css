@@ -1,0 +1,189 @@
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    transition: background-color 0.3s ease;
+    background: url(/images/WhatsApp\ Image\ 2024-12-16\ at\ 10.37.53\ PM.jpeg);
+    background-size: cover; /* Stretches the image to cover the entire element */
+    background-size: contain; /* Scales the image to fit within the element */
+}
+
+.auth-container {
+    text-align: center;
+    background: #ffffff;
+    opacity: 0.8;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    max-width: 500px;
+    width: 90%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.auth-box h1 {
+    margin: 0 0 15px;
+    font-size: 26px;
+    color: #333;
+}
+
+.auth-box p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.auth-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.auth-option {
+    padding: 12px 25px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    flex: 1;
+}
+
+.auth-option:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+}
+
+.auth-option:active {
+    transform: translateY(0);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    width: 350px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.modal-content h2 {
+    margin: 0 0 15px;
+    font-size: 22px;
+    color: #333;
+    text-align: center;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-content label {
+    font-size: 14px;
+    color: #666;
+}
+
+.modal-content input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.modal-content input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.modal-content button {
+    padding: 12px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.modal-content button:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+.modal-content button:active {
+    transform: translateY(0);
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #333;
+}
+
+.close-modal:hover {
+    color: #ff0000;
+}
+
+.student-modal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .auth-container {
+        padding: 20px;
+    }
+
+    .auth-box h1 {
+        font-size: 22px;
+    }
+
+    .auth-option {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+
+    .modal-content h2 {
+        font-size: 20px;
+    }
+}

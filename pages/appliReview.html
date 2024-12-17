@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarship Application</title>
+    <link rel="stylesheet" href="/styles/appliReview.css">
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>Scholarship Application Review</h1>
+        <form id="scholarship-form" action="#" method="POST">
+            <!-- Name Field -->
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+            <!-- Email Field -->
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+            <!-- Course Type (UG/PG) -->
+            <label for="course">Course Type</label>
+            <select id="course" name="course" required>
+                <option value="ug">Undergraduate (UG)</option>
+                <option value="pg">Postgraduate (PG)</option>
+            </select>
+
+            <!-- Course Name -->
+            <label for="course-name">Course Name</label>
+            <input type="text" id="course-name" name="course-name" placeholder="Enter your course name" required>
+
+            <!-- Statement of Purpose -->
+            <label for="statement">Statement of Purpose</label>
+            <textarea id="statement" name="statement" rows="5" placeholder="Write your statement of purpose" required></textarea>
+
+            <input type="submit" value="Submit">
+            <button type="button" onclick="approveApplication('application1')"
+            style="background: #018000;
+           color: white;"
+          >Approve</button>
+            <button type="button" onclick="rejectApplication('application1')"
+            style="background: #d40202d8;
+           color: white;"
+           >Reject</button>
+        </form>
+
+        <!-- Confirmation Message -->
+        <div id="confirmation" class="confirmation-message" style="display: none;"></div>
+        <div id="error" class="error-message" style="display: none;"></div>
+        <div class="form-buttons">
+          
+        </div>
+    </div>
+    <script src="/scripts/appliReview.js"></script>
+    
+</body>
+</html>

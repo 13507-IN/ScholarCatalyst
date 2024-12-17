@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarship Portal - Auth</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/auth.css">
+</head>
+<body >
+    <div class="auth-container">
+        <div class="auth-box">
+            <h1>Welcome to Scholarship Portal</h1>
+            <p>Choose your account type to continue</p>
+            <div class="auth-buttons">
+                <button class="auth-option" id="studentButton">Student</button>
+                <button class="auth-option" id="providerButton">Scholarship Provider</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Sign-In Form -->
+    <div class="modal" id="studentModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeStudent">&times;</span>
+            <h2>Student Login</h2>
+            <form id="student-form">
+                <label for="student-username" id="studentUser" >Username</label>
+                <input type="text" id="student-username" name="username" required>
+
+                <label for="student-password">Password</label>
+                <input type="password" id="student-password" name="password" required>
+
+                <button type="submit" id="studentSignin">Sign in</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Provider Sign-In Form -->
+    <div class="modal" id="providerModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeProvider">&times;</span>
+            <h2>Scholarship Provider Login</h2>
+            <form id="provider-form">
+                <label for="provider-username">Username</label>
+                <input type="text" id="provider-username" name="username" required>
+
+                <label for="provider-password">Password</label>
+                <input type="password" id="provider-password" name="password" required>
+
+                <label for="organization-name">Organization Name</label>
+                <input type="text" id="organization-name" name="organization" required>
+
+                <button type="submit" id="providerSignin">Log In</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/scripts/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enlist a Scholarship</title>
+    <link rel="stylesheet" href="/styles/scholarCreat.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Enlist Your Scholarship</h1>
+        <form id="scholarshipForm">
+            <!-- Scholarship Name -->
+            <label for="scholarshipName">Scholarship Name:</label>
+            <input type="text" id="scholarshipName" name="scholarshipName" placeholder="Enter the scholarship name" required>
+            
+            <!-- Organization Name -->
+            <label for="organizationName">Organization Name:</label>
+            <input type="text" id="organizationName" name="organizationName" placeholder="Enter your organization name" required>
+            
+            <!-- Scholarship Details -->
+            <label for="details">Details:</label>
+            <textarea id="details" name="details" placeholder="Enter details about the scholarship" required></textarea>
+            
+            <!-- Deadline -->
+            <label for="deadline">Application Deadline:</label>
+            <input type="date" id="deadline" name="deadline" required>
+            
+            <!-- Eligibility -->
+            <label for="eligibility">Eligibility Criteria:</label>
+            <textarea id="eligibility" name="eligibility" placeholder="Enter eligibility criteria" required></textarea>
+
+            <!-- Poster Upload -->
+            <label for="poster">Scholarship Poster:</label>
+            <input type="file" id="poster" name="poster" accept="image/*" required>
+            <p class="note">Upload a poster image (JPEG, PNG).</p>
+            
+            <!-- Submit Button -->
+            <button type="submit" id="scholarCreat">Submit Scholarship</button>
+        </form>
+    </div>
+
+    <script src="/scripts/scholarCreat.js">  
+    </script>
+</body>
+</html>

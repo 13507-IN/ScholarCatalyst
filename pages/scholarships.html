@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarships</title>
+    <link rel="stylesheet" href="/styles/scholarships.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Available Scholarships</h1>
+        <div class="scholarships">
+             <img src="/pages/tata.jpeg"  alt="Tata Scholarship" width="200" height="150px">
+             <a rel="tata scholarship" href="https://svmcm.co.in/tata-scholarship-apply-online-last-date/">Know More About Tata Scholarship</a>
+         </div>
+         <div class="scholarships">
+            <img src="/pages/sbif.jpeg"  alt="SBIF Scholarship" width="200" height="150px">
+            <a rel="sbif scholarship" href="https://www.sbifashascholarship.org/">Know More About SBIF Scholarship</a>
+        </div>
+        <div class="scholarships">
+            <img src="/pages/bpcl.jpeg"  alt="BPCL Scholarship" width="300" height="150px">
+            <a rel="BPCL scholarship" href="https://www.bharatpetroleum.in/careers/scholarship-announcement.aspx">Know More About BPCL Scholarship</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="scholarships">
+            <img src="/pages/adityabirla.jpeg"  alt="Aditya Birla Scholarship" width="300" height="150px">
+            <a rel="Aditya Birla scholarship" href="https://www.adityabirlascholars.net/the-scholarship/">Know More About Aditya Birla Scholarship</a>
+        </div>
+        <div class="scholarships">
+            <img src="/pages/indialoil.jpeg"  alt="IOCL Scholarship" width="200" height="150px">
+            <a rel="IOCL scholarship" href="https://iocl.com/Scholarships">Know More About IOCL Scholarship</a>
+        </div>
+        <div class="scholarships">
+            <img src="/pages/hdfc.jpeg"  alt="HDFC Scholarship" width="200" height="150px">
+            <a rel="HDFC scholarship" href="https://www.hdfcbankecss.com/">Know More About HDFC Scholarship</a>
+        </div>
+    </div>
+  
+    <script src="script.js"></script>
+ 
+
+    <script>
+        // Replace this URL with the external API endpoint
+        const apiURL = "https://tinyurl.com/nh939euh";
+
+        // Use the fetch() API to make a GET request
+        fetch(apiURL)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(HTTP `error! Status: ${response.status}`);
+                }
+                return response.json(); // Convert the response to JSON
+            })
+            .then(data => {
+                // Display the data in the HTML
+                const dataContainer = document.getElementById('data');
+                dataContainer.innerHTML = `
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            })
+            .catch(error => {
+                console.error('Error fetching the API:', error);
+            });
+    </script>
+</body>
+</html>
