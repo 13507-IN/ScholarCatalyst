@@ -4,6 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import { MessageCircle, ThumbsUp } from 'lucide-react';
 
 const Community = () => {
+  const API_URL = import.meta.env.VITE_API_URL || '';
   const { user } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [newPost, setNewPost] = useState({ title: '', content: '' });
@@ -14,7 +15,7 @@ const Community = () => {
 
   const fetchPosts = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/community');
+      const { data } = await axios.get(`${API_URL}/api/community`);
       setPosts(data);
     } catch (err) {
       console.error(err);
@@ -25,7 +26,7 @@ const Community = () => {
     e.preventDefault();
     if (!user) return alert('Please login to post');
     try {
-      await axios.post('http://localhost:5000/api/community', newPost, {
+      await axios.post(`${API_URL}/api/community`, newPost, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       fetchPosts();
@@ -38,7 +39,7 @@ const Community = () => {
   const handleUpvote = async (id) => {
     if (!user) return alert('Please login to vote');
     try {
-      await axios.put(`http://localhost:5000/api/community/${id}/upvote`, {}, {
+      await axios.put(`${API_URL}/api/community/${id}/upvote`, {}, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       fetchPosts();

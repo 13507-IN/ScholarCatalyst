@@ -4,6 +4,7 @@ import axios from 'axios';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const API_URL = import.meta.env.VITE_API_URL || '';
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -16,13 +17,13 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const { data } = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+    const { data } = await axios.post(`${API_URL}/api/auth/login`, { email, password });
     localStorage.setItem('userInfo', JSON.stringify(data));
     setUser(data);
   };
 
   const register = async (userData) => {
-    const { data } = await axios.post('http://localhost:5000/api/auth/register', userData);
+    const { data } = await axios.post(`${API_URL}/api/auth/register`, userData);
     localStorage.setItem('userInfo', JSON.stringify(data));
     setUser(data);
   };

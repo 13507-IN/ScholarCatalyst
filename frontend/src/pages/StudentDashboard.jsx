@@ -4,6 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import { BookOpen, MapPin, DollarSign, Award, Send } from 'lucide-react';
 
 const StudentDashboard = () => {
+  const API_URL = import.meta.env.VITE_API_URL || '';
   const { user } = useContext(AuthContext);
   const [recommendations, setRecommendations] = useState([]);
   const [applications, setApplications] = useState([]);
@@ -18,7 +19,7 @@ const StudentDashboard = () => {
 
   const fetchRecommendations = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:5000/api/scholarships/recommendations/${user._id}`, {
+      const { data } = await axios.get(`${API_URL}/api/scholarships/recommendations/${user._id}`, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setRecommendations(data);
@@ -29,7 +30,7 @@ const StudentDashboard = () => {
 
   const fetchApplications = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/applications/my', {
+      const { data } = await axios.get(`${API_URL}/api/applications/my`, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setApplications(data);
@@ -40,7 +41,7 @@ const StudentDashboard = () => {
 
   const applyForScholarship = async (id) => {
     try {
-      await axios.post('http://localhost:5000/api/applications', {
+      await axios.post(`${API_URL}/api/applications`, {
         scholarshipId: id,
         sopText: 'Standard SOP submitted',
       }, {
@@ -56,7 +57,7 @@ const StudentDashboard = () => {
   const handleGenerateSop = async () => {
     setGenerating(true);
     try {
-      const { data } = await axios.post('http://localhost:5000/api/ai/generate-sop', { prompt }, {
+      const { data } = await axios.post(`${API_URL}/api/ai/generate-sop`, { prompt }, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setSopResult(data.generatedText);

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 
 const AdminDashboard = () => {
+  const API_URL = import.meta.env.VITE_API_URL || '';
   const { user } = useContext(AuthContext);
   const [scholarships, setScholarships] = useState([]);
   const [applications, setApplications] = useState([]);
@@ -15,8 +16,8 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     try {
       const [schRes, appRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/scholarships', { headers: { Authorization: `Bearer ${user.token}` } }),
-        axios.get('http://localhost:5000/api/applications', { headers: { Authorization: `Bearer ${user.token}` } })
+        axios.get(`${API_URL}/api/scholarships`, { headers: { Authorization: `Bearer ${user.token}` } }),
+        axios.get(`${API_URL}/api/applications`, { headers: { Authorization: `Bearer ${user.token}` } })
       ]);
       setScholarships(schRes.data);
       setApplications(appRes.data);
@@ -28,7 +29,7 @@ const AdminDashboard = () => {
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/scholarships', newSch, {
+      await axios.post(`${API_URL}/api/scholarships`, newSch, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       fetchData();
@@ -40,7 +41,7 @@ const AdminDashboard = () => {
 
   const updateAppStatus = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/applications/${id}/status`, { status }, {
+      await axios.put(`${API_URL}/api/applications/${id}/status`, { status }, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       fetchData();
