@@ -1,19 +1,3 @@
-document.getElementById('studentButton').addEventListener('click' , () => {
-    document.getElementById('studentModal').style.display = 'block';
-});
-
-
-document.getElementById('providerButton').addEventListener('click' , () => {
-    document.getElementById('providerModal').style.display = 'block';
-});
-
-document.getElementById('closeStudent').addEventListener('click' , () => {
-    document.getElementById('studentModal').style.display = 'none';
-});
-
-document.getElementById('closeProvider').addEventListener('click' , () => {
-    document.getElementById('providerModal').style.display = 'none';
-});
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -88,4 +72,5 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-const studUser = document.getElementById(studentUser);
+const studUser = document.getElementById('studentUser');
+

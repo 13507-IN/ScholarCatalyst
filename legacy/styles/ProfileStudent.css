@@ -96,7 +96,7 @@ label {
 }
 
 /* Submit Button */
-.submit-btn {
+.submitBtn {
     background-color: #0077b6;
     color: #fff;
     padding: 12px;
@@ -109,7 +109,7 @@ label {
     text-transform: uppercase;
 }
 
-.submit-btn:hover {
+.submitBtn:hover {
     background-color: #005f8a;
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
