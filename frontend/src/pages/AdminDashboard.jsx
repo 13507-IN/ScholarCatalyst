@@ -3,7 +3,7 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 
 const AdminDashboard = () => {
-  const API_URL = import.meta.env.VITE_API_URL || '';
+  const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/_/backend' : 'http://localhost:5000');
   const { user } = useContext(AuthContext);
   const [scholarships, setScholarships] = useState([]);
   const [applications, setApplications] = useState([]);

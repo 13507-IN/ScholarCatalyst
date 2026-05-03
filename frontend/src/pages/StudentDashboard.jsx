@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import { BookOpen, MapPin, DollarSign, Award, Send } from 'lucide-react';
 
 const StudentDashboard = () => {
-  const API_URL = import.meta.env.VITE_API_URL || '';
+  const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/_/backend' : 'http://localhost:5000');
   const { user } = useContext(AuthContext);
   const [recommendations, setRecommendations] = useState([]);
   const [applications, setApplications] = useState([]);
