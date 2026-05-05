@@ -24,6 +24,7 @@ app.use('/api/scholarships', require('./routes/scholarshipRoutes'));
 app.use('/api/applications', require('./routes/applicationRoutes'));
 app.use('/api/community', require('./routes/communityRoutes'));
 app.use('/api/ai', require('./routes/aiRoutes'));
+app.use('/api/documents', require('./routes/documentRoutes'));
 
 // Basic route
 app.get('/', (req, res) => {
