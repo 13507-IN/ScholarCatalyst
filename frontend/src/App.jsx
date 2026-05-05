@@ -12,6 +12,9 @@ import ProfileBuilder from './pages/ProfileBuilder';
 import DeadlineCalendar from './pages/DeadlineCalendar';
 import ApplicationTracker from './pages/ApplicationTracker';
 import DocumentVault from './pages/DocumentVault';
+import InterviewPrep from './pages/InterviewPrep';
+import ScholarshipSearch from './pages/ScholarshipSearch';
+import SuccessStories from './pages/SuccessStories';
 
 const ProtectedRoute = ({ children, role }) => {
   const { user, loading } = React.useContext(AuthContext);
@@ -55,6 +58,18 @@ const App = () => {
             <Route 
               path="/documents" 
               element={<ProtectedRoute role="student"><DocumentVault /></ProtectedRoute>} 
+            />
+            <Route 
+              path="/interview" 
+              element={<ProtectedRoute role="student"><InterviewPrep /></ProtectedRoute>} 
+            />
+            <Route 
+              path="/search" 
+              element={<ProtectedRoute role="student"><ScholarshipSearch /></ProtectedRoute>} 
+            />
+            <Route 
+              path="/stories" 
+              element={<SuccessStories />} 
             />
           </Routes>
         </div>
