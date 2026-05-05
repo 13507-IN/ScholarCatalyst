@@ -8,6 +8,10 @@ import Register from './pages/Register';
 import StudentDashboard from './pages/StudentDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import Community from './pages/Community';
+import ProfileBuilder from './pages/ProfileBuilder';
+import DeadlineCalendar from './pages/DeadlineCalendar';
+import ApplicationTracker from './pages/ApplicationTracker';
+import DocumentVault from './pages/DocumentVault';
 
 const ProtectedRoute = ({ children, role }) => {
   const { user, loading } = React.useContext(AuthContext);
@@ -35,6 +39,22 @@ const App = () => {
             <Route 
               path="/admin-dashboard" 
               element={<ProtectedRoute role="admin"><AdminDashboard /></ProtectedRoute>} 
+            />
+            <Route 
+              path="/profile" 
+              element={<ProtectedRoute role="student"><ProfileBuilder /></ProtectedRoute>} 
+            />
+            <Route 
+              path="/calendar" 
+              element={<ProtectedRoute role="student"><DeadlineCalendar /></ProtectedRoute>} 
+            />
+            <Route 
+              path="/tracker" 
+              element={<ProtectedRoute role="student"><ApplicationTracker /></ProtectedRoute>} 
+            />
+            <Route 
+              path="/documents" 
+              element={<ProtectedRoute role="student"><DocumentVault /></ProtectedRoute>} 
             />
           </Routes>
         </div>
