@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
-import { BookOpen, MapPin, DollarSign, Award, Send } from 'lucide-react';
+import { BookOpen, MapPin, DollarSign, Award, Send, Copy, Check } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 
 const StudentDashboard = () => {
   const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/_/backend' : 'http://localhost:5000');
@@ -11,6 +12,7 @@ const StudentDashboard = () => {
   const [prompt, setPrompt] = useState('');
   const [sopResult, setSopResult] = useState('');
   const [generating, setGenerating] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     fetchRecommendations();
@@ -56,6 +58,7 @@ const StudentDashboard = () => {
 
   const handleGenerateSop = async () => {
     setGenerating(true);
+    setCopied(false);
     try {
       const { data } = await axios.post(`${API_URL}/api/ai/generate-sop`, { prompt }, {
         headers: { Authorization: `Bearer ${user.token}` }
@@ -65,6 +68,12 @@ const StudentDashboard = () => {
       alert('Failed to generate SOP');
     }
     setGenerating(false);
+  };
+
+  const handleCopySop = () => {
+    navigator.clipboard.writeText(sopResult);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -164,8 +173,34 @@ const StudentDashboard = () => {
               {generating ? 'Generating...' : <><Send size={16} /> Generate Draft</>}
             </button>
             {sopResult && (
-              <div className="mt-4 p-4 bg-gray-50 rounded-lg text-sm text-gray-700 border border-gray-200 max-h-64 overflow-y-auto whitespace-pre-wrap">
-                {sopResult}
+              <div className="mt-4">
+                <div className="flex justify-between items-center mb-2">
+                  <h3 className="text-sm font-semibold text-gray-700">Generated SOP</h3>
+                  <button
+                    onClick={handleCopySop}
+                    className="flex items-center gap-1 text-xs text-gray-500 hover:text-purple-600 transition"
+                  >
+                    {copied ? <><Check size={14} className="text-green-500"/> Copied!</> : <><Copy size={14}/> Copy</>}
+                  </button>
+                </div>
+                <div className="bg-gray-50 rounded-lg border border-gray-200 max-h-96 overflow-y-auto p-5 prose prose-sm prose-purple max-w-none">
+                  <ReactMarkdown
+                    components={{
+                      h1: ({node, ...props}) => <h1 className="text-xl font-bold text-gray-900 mb-3 mt-0" {...props}/>,
+                      h2: ({node, ...props}) => <h2 className="text-lg font-bold text-gray-900 mb-2 mt-5 first:mt-0" {...props}/>,
+                      h3: ({node, ...props}) => <h3 className="text-base font-semibold text-gray-800 mb-1 mt-4" {...props}/>,
+                      p: ({node, ...props}) => <p className="text-gray-700 leading-relaxed mb-3" {...props}/>,
+                      ul: ({node, ...props}) => <ul className="list-disc pl-5 mb-3 space-y-1" {...props}/>,
+                      ol: ({node, ...props}) => <ol className="list-decimal pl-5 mb-3 space-y-1" {...props}/>,
+                      li: ({node, ...props}) => <li className="text-gray-700" {...props}/>,
+                      strong: ({node, ...props}) => <strong className="font-bold text-gray-900" {...props}/>,
+                      em: ({node, ...props}) => <em className="italic text-gray-800" {...props}/>,
+                      blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-purple-300 pl-4 italic text-gray-600 my-3" {...props}/>,
+                    }}
+                  >
+                    {sopResult}
+                  </ReactMarkdown>
+                </div>
               </div>
             )}
           </div>
