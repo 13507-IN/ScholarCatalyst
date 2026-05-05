@@ -130,14 +130,37 @@ const updateProfile = async (req, res) => {
       }
     });
 
-    // Calculate profile completion percentage
-    const profileFields = [
-      user.name, user.schoolOrCollege, user.academicMarks, user.stream,
-      user.location, user.country, user.currentEducationLevel, user.careerGoals,
-      user.extracurriculars?.length, user.achievements?.length
+    // Calculate profile completion with weighted scoring
+    const requiredFields = [
+      { field: 'name', weight: 10 },
+      { field: 'schoolOrCollege', weight: 10 },
+      { field: 'academicMarks', weight: 10 },
+      { field: 'stream', weight: 10 },
+      { field: 'location', weight: 5 },
+      { field: 'country', weight: 5 },
+      { field: 'currentEducationLevel', weight: 10 },
+      { field: 'careerGoals', weight: 10 },
+      { field: 'extracurriculars', weight: 5, isArray: true },
+      { field: 'achievements', weight: 5, isArray: true },
+      { field: 'languages', weight: 5, isArray: true },
+      { field: 'phoneNumber', weight: 5 },
+      { field: 'dateOfBirth', weight: 5 },
+      { field: 'gender', weight: 5 }
     ];
-    const filledFields = profileFields.filter(f => f && f !== '' && f !== 0).length;
-    user.profileComplete = Math.round((filledFields / profileFields.length) * 100);
+
+    let totalWeight = 0;
+    let earnedWeight = 0;
+
+    requiredFields.forEach(({ field, weight, isArray }) => {
+      totalWeight += weight;
+      if (isArray) {
+        if (Array.isArray(user[field]) && user[field].length > 0) earnedWeight += weight;
+      } else {
+        if (user[field] && user[field] !== '' && user[field] !== 0) earnedWeight += weight;
+      }
+    });
+
+    user.profileComplete = Math.round((earnedWeight / totalWeight) * 100);
 
     const updatedUser = await user.save();
 
