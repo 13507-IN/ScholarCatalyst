@@ -1,14 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { GraduationCap } from 'lucide-react';
+import { GraduationCap, Menu, X, User, Calendar, Kanban, FolderOpen } from 'lucide-react';
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
+    setMobileOpen(false);
     navigate('/');
   };
 
@@ -19,19 +21,29 @@ const Navbar = () => {
           <GraduationCap size={28} />
           <span>ScholarCatalyst</span>
         </Link>
-        <div className="flex items-center gap-6">
+
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center gap-6">
           <Link to="/community" className="text-gray-600 hover:text-brand-600 font-medium transition">Community</Link>
-          {user ? (
+          {user && user.role === 'student' && (
             <>
-              {user.role === 'student' && <Link to="/student-dashboard" className="text-gray-600 hover:text-brand-600 font-medium transition">Dashboard</Link>}
-              {user.role === 'admin' && <Link to="/admin-dashboard" className="text-gray-600 hover:text-brand-600 font-medium transition">Admin Panel</Link>}
-              <button 
-                onClick={handleLogout}
-                className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition"
-              >
-                Logout
-              </button>
+              <Link to="/student-dashboard" className="text-gray-600 hover:text-brand-600 font-medium transition">Dashboard</Link>
+              <Link to="/profile" className="text-gray-600 hover:text-brand-600 font-medium transition flex items-center gap-1"><User size={16}/> Profile</Link>
+              <Link to="/calendar" className="text-gray-600 hover:text-brand-600 font-medium transition flex items-center gap-1"><Calendar size={16}/> Calendar</Link>
+              <Link to="/tracker" className="text-gray-600 hover:text-brand-600 font-medium transition flex items-center gap-1"><Kanban size={16}/> Tracker</Link>
+              <Link to="/documents" className="text-gray-600 hover:text-brand-600 font-medium transition flex items-center gap-1"><FolderOpen size={16}/> Docs</Link>
             </>
+          )}
+          {user && user.role === 'admin' && (
+            <Link to="/admin-dashboard" className="text-gray-600 hover:text-brand-600 font-medium transition">Admin Panel</Link>
+          )}
+          {user ? (
+            <button 
+              onClick={handleLogout}
+              className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition"
+            >
+              Logout
+            </button>
           ) : (
             <>
               <Link to="/login" className="text-gray-600 hover:text-brand-600 font-medium transition">Login</Link>
@@ -41,7 +53,39 @@ const Navbar = () => {
             </>
           )}
         </div>
+
+        {/* Mobile Menu Button */}
+        <button className="md:hidden p-2 hover:bg-gray-100 rounded-lg" onClick={() => setMobileOpen(!mobileOpen)}>
+          {mobileOpen ? <X size={24}/> : <Menu size={24}/>}
+        </button>
       </div>
+
+      {/* Mobile Menu */}
+      {mobileOpen && (
+        <div className="md:hidden mt-4 pt-4 border-t border-gray-100 space-y-3">
+          <Link to="/community" onClick={() => setMobileOpen(false)} className="block text-gray-600 hover:text-brand-600 font-medium py-2">Community</Link>
+          {user && user.role === 'student' && (
+            <>
+              <Link to="/student-dashboard" onClick={() => setMobileOpen(false)} className="block text-gray-600 hover:text-brand-600 font-medium py-2">Dashboard</Link>
+              <Link to="/profile" onClick={() => setMobileOpen(false)} className="block text-gray-600 hover:text-brand-600 font-medium py-2 flex items-center gap-2"><User size={16}/> Profile</Link>
+              <Link to="/calendar" onClick={() => setMobileOpen(false)} className="block text-gray-600 hover:text-brand-600 font-medium py-2 flex items-center gap-2"><Calendar size={16}/> Calendar</Link>
+              <Link to="/tracker" onClick={() => setMobileOpen(false)} className="block text-gray-600 hover:text-brand-600 font-medium py-2 flex items-center gap-2"><Kanban size={16}/> Tracker</Link>
+              <Link to="/documents" onClick={() => setMobileOpen(false)} className="block text-gray-600 hover:text-brand-600 font-medium py-2 flex items-center gap-2"><FolderOpen size={16}/> Documents</Link>
+            </>
+          )}
+          {user && user.role === 'admin' && (
+            <Link to="/admin-dashboard" onClick={() => setMobileOpen(false)} className="block text-gray-600 hover:text-brand-600 font-medium py-2">Admin Panel</Link>
+          )}
+          {user ? (
+            <button onClick={handleLogout} className="w-full text-left text-gray-700 font-medium py-2">Logout</button>
+          ) : (
+            <>
+              <Link to="/login" onClick={() => setMobileOpen(false)} className="block text-gray-600 hover:text-brand-600 font-medium py-2">Login</Link>
+              <Link to="/register" onClick={() => setMobileOpen(false)} className="block bg-brand-600 text-white text-center px-5 py-2 rounded-lg font-medium">Sign Up</Link>
+            </>
+          )}
+        </div>
+      )}
     </nav>
   );
 };
