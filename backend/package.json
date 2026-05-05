@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "seed:scholarships": "node seedScholarships.js",
+    "seed:testimonials": "node seedTestimonials.js",
+    "seed:all": "node seedScholarships.js && node seedTestimonials.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "rishi": "node --watch server.js"
