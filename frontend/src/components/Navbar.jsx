@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { GraduationCap, Menu, X, User, Calendar, Kanban, FolderOpen } from 'lucide-react';
+import { GraduationCap, Menu, X, User, Calendar, Kanban, FolderOpen, Video, Search, Star } from 'lucide-react';
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -25,6 +25,12 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-6">
           <Link to="/community" className="text-gray-600 hover:text-brand-600 font-medium transition">Community</Link>
+          {user && (
+            <>
+              <Link to="/search" className="text-gray-600 hover:text-brand-600 font-medium transition flex items-center gap-1"><Search size={16}/> Search</Link>
+              <Link to="/stories" className="text-gray-600 hover:text-brand-600 font-medium transition flex items-center gap-1"><Star size={16}/> Stories</Link>
+            </>
+          )}
           {user && user.role === 'student' && (
             <>
               <Link to="/student-dashboard" className="text-gray-600 hover:text-brand-600 font-medium transition">Dashboard</Link>
@@ -32,6 +38,7 @@ const Navbar = () => {
               <Link to="/calendar" className="text-gray-600 hover:text-brand-600 font-medium transition flex items-center gap-1"><Calendar size={16}/> Calendar</Link>
               <Link to="/tracker" className="text-gray-600 hover:text-brand-600 font-medium transition flex items-center gap-1"><Kanban size={16}/> Tracker</Link>
               <Link to="/documents" className="text-gray-600 hover:text-brand-600 font-medium transition flex items-center gap-1"><FolderOpen size={16}/> Docs</Link>
+              <Link to="/interview" className="text-gray-600 hover:text-brand-600 font-medium transition flex items-center gap-1"><Video size={16}/> Interview</Link>
             </>
           )}
           {user && user.role === 'admin' && (
@@ -64,6 +71,12 @@ const Navbar = () => {
       {mobileOpen && (
         <div className="md:hidden mt-4 pt-4 border-t border-gray-100 space-y-3">
           <Link to="/community" onClick={() => setMobileOpen(false)} className="block text-gray-600 hover:text-brand-600 font-medium py-2">Community</Link>
+          {user && (
+            <>
+              <Link to="/search" onClick={() => setMobileOpen(false)} className="block text-gray-600 hover:text-brand-600 font-medium py-2 flex items-center gap-2"><Search size={16}/> Scholarship Search</Link>
+              <Link to="/stories" onClick={() => setMobileOpen(false)} className="block text-gray-600 hover:text-brand-600 font-medium py-2 flex items-center gap-2"><Star size={16}/> Success Stories</Link>
+            </>
+          )}
           {user && user.role === 'student' && (
             <>
               <Link to="/student-dashboard" onClick={() => setMobileOpen(false)} className="block text-gray-600 hover:text-brand-600 font-medium py-2">Dashboard</Link>
@@ -71,6 +84,7 @@ const Navbar = () => {
               <Link to="/calendar" onClick={() => setMobileOpen(false)} className="block text-gray-600 hover:text-brand-600 font-medium py-2 flex items-center gap-2"><Calendar size={16}/> Calendar</Link>
               <Link to="/tracker" onClick={() => setMobileOpen(false)} className="block text-gray-600 hover:text-brand-600 font-medium py-2 flex items-center gap-2"><Kanban size={16}/> Tracker</Link>
               <Link to="/documents" onClick={() => setMobileOpen(false)} className="block text-gray-600 hover:text-brand-600 font-medium py-2 flex items-center gap-2"><FolderOpen size={16}/> Documents</Link>
+              <Link to="/interview" onClick={() => setMobileOpen(false)} className="block text-gray-600 hover:text-brand-600 font-medium py-2 flex items-center gap-2"><Video size={16}/> Interview Prep</Link>
             </>
           )}
           {user && user.role === 'admin' && (
