@@ -5,30 +5,56 @@ import { User, GraduationCap, BookOpen, MapPin, Target, Trophy, Languages, Brief
 
 const ProfileBuilder = () => {
   const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/_/backend' : 'http://localhost:5000');
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [formData, setFormData] = useState({
-    name: user?.name || '',
-    schoolOrCollege: user?.schoolOrCollege || '',
-    phoneNumber: user?.phoneNumber || '',
-    academicMarks: user?.academicMarks || '',
-    familyIncome: user?.familyIncome || '',
-    stream: user?.stream || '',
-    location: user?.location || '',
-    country: user?.country || '',
-    city: user?.city || '',
-    dateOfBirth: user?.dateOfBirth ? new Date(user.dateOfBirth).toISOString().split('T')[0] : '',
-    gender: user?.gender || '',
-    currentEducationLevel: user?.currentEducationLevel || '',
-    yearOfStudy: user?.yearOfStudy || '',
-    extracurriculars: user?.extracurriculars?.join(', ') || '',
-    achievements: user?.achievements?.join(', ') || '',
-    languages: user?.languages?.join(', ') || '',
-    careerGoals: user?.careerGoals || '',
-    financialNeedStatement: user?.financialNeedStatement || '',
-    linkedinUrl: user?.linkedinUrl || ''
+    name: '',
+    schoolOrCollege: '',
+    phoneNumber: '',
+    academicMarks: '',
+    familyIncome: '',
+    stream: '',
+    location: '',
+    country: '',
+    city: '',
+    dateOfBirth: '',
+    gender: '',
+    currentEducationLevel: '',
+    yearOfStudy: '',
+    extracurriculars: '',
+    achievements: '',
+    languages: '',
+    careerGoals: '',
+    financialNeedStatement: '',
+    linkedinUrl: ''
   });
+
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        name: user?.name || '',
+        schoolOrCollege: user?.schoolOrCollege || '',
+        phoneNumber: user?.phoneNumber || '',
+        academicMarks: user?.academicMarks || '',
+        familyIncome: user?.familyIncome || '',
+        stream: user?.stream || '',
+        location: user?.location || '',
+        country: user?.country || '',
+        city: user?.city || '',
+        dateOfBirth: user?.dateOfBirth ? new Date(user.dateOfBirth).toISOString().split('T')[0] : '',
+        gender: user?.gender || '',
+        currentEducationLevel: user?.currentEducationLevel || '',
+        yearOfStudy: user?.yearOfStudy || '',
+        extracurriculars: Array.isArray(user?.extracurriculars) ? user.extracurriculars.join(', ') : user?.extracurriculars || '',
+        achievements: Array.isArray(user?.achievements) ? user.achievements.join(', ') : user?.achievements || '',
+        languages: Array.isArray(user?.languages) ? user.languages.join(', ') : user?.languages || '',
+        careerGoals: user?.careerGoals || '',
+        financialNeedStatement: user?.financialNeedStatement || '',
+        linkedinUrl: user?.linkedinUrl || ''
+      });
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -49,9 +75,11 @@ const ProfileBuilder = () => {
     };
 
     try {
-      await axios.put(`${API_URL}/api/auth/profile`, payload, {
+      const { data } = await axios.put(`${API_URL}/api/auth/profile`, payload, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
+      localStorage.setItem('userInfo', JSON.stringify(data));
+      setUser(data);
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
     } catch (err) {
