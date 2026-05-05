@@ -14,7 +14,16 @@ const generateSop = async (req, res) => {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
-    const fullPrompt = `You are an expert scholarship advisor. Help a student write a compelling Statement of Purpose (SOP) or essay for a scholarship application. Here are the details provided by the student: ${prompt}`;
+    const fullPrompt = `You are an expert scholarship advisor. Help a student write a compelling, well-structured Statement of Purpose (SOP) or essay for a scholarship application.
+
+Write in markdown format with the following structure:
+- A strong opening hook paragraph
+- Clear sections with headings like "## Academic Background", "## Career Goals", "## Why This Scholarship", etc. (adapt to the details provided)
+- Use bullet points for achievements where appropriate
+- A persuasive closing paragraph
+- Keep it professional, passionate, and specific
+
+Student details: ${prompt}`;
 
     const result = await model.generateContent(fullPrompt);
     const response = await result.response;

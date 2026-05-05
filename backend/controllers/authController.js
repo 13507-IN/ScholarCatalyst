@@ -51,7 +51,7 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select('+profileComplete +schoolOrCollege +academicMarks +stream +location +country +city +currentEducationLevel +careerGoals');
 
     if (user && (await bcrypt.compare(password, user.password))) {
       res.json({
@@ -59,6 +59,24 @@ const loginUser = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        profileComplete: user.profileComplete,
+        schoolOrCollege: user.schoolOrCollege,
+        academicMarks: user.academicMarks,
+        stream: user.stream,
+        location: user.location,
+        country: user.country,
+        city: user.city,
+        currentEducationLevel: user.currentEducationLevel,
+        careerGoals: user.careerGoals,
+        extracurriculars: user.extracurriculars,
+        achievements: user.achievements,
+        languages: user.languages,
+        dateOfBirth: user.dateOfBirth,
+        gender: user.gender,
+        yearOfStudy: user.yearOfStudy,
+        financialNeedStatement: user.financialNeedStatement,
+        linkedinUrl: user.linkedinUrl,
+        profilePhoto: user.profilePhoto,
         token: generateToken(user._id)
       });
     } else {
@@ -69,4 +87,66 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser };
+const updateProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const fields = [
+      'name', 'schoolOrCollege', 'phoneNumber', 'academicMarks', 'familyIncome',
+      'stream', 'location', 'country', 'city', 'dateOfBirth', 'gender',
+      'currentEducationLevel', 'yearOfStudy', 'extracurriculars', 'achievements',
+      'languages', 'careerGoals', 'financialNeedStatement', 'linkedinUrl', 'profilePhoto'
+    ];
+
+    fields.forEach(field => {
+      if (req.body[field] !== undefined) {
+        user[field] = req.body[field];
+      }
+    });
+
+    // Calculate profile completion percentage
+    const profileFields = [
+      user.name, user.schoolOrCollege, user.academicMarks, user.stream,
+      user.location, user.country, user.currentEducationLevel, user.careerGoals,
+      user.extracurriculars?.length, user.achievements?.length
+    ];
+    const filledFields = profileFields.filter(f => f && f !== '' && f !== 0).length;
+    user.profileComplete = Math.round((filledFields / profileFields.length) * 100);
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      role: updatedUser.role,
+      profileComplete: updatedUser.profileComplete,
+      schoolOrCollege: updatedUser.schoolOrCollege,
+      academicMarks: updatedUser.academicMarks,
+      stream: updatedUser.stream,
+      location: updatedUser.location,
+      country: updatedUser.country,
+      city: updatedUser.city,
+      currentEducationLevel: updatedUser.currentEducationLevel,
+      careerGoals: updatedUser.careerGoals,
+      extracurriculars: updatedUser.extracurriculars,
+      achievements: updatedUser.achievements,
+      languages: updatedUser.languages,
+      dateOfBirth: updatedUser.dateOfBirth,
+      gender: updatedUser.gender,
+      yearOfStudy: updatedUser.yearOfStudy,
+      financialNeedStatement: updatedUser.financialNeedStatement,
+      linkedinUrl: updatedUser.linkedinUrl,
+      profilePhoto: updatedUser.profilePhoto,
+      token: generateToken(updatedUser._id)
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { registerUser, loginUser, updateProfile };
