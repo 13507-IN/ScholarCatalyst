@@ -17,25 +17,42 @@ const getScholarships = async (req, res) => {
 // @access  Private
 const getRecommendations = async (req, res) => {
   try {
-    // Basic recommendation logic
-    const user = req.user; // from auth middleware
+    const user = req.user;
+    if (!user) return res.status(401).json({ message: 'Not authorized' });
+    
     const scholarships = await Scholarship.find({ isActive: true });
     
-    // Scoring logic
+    const hasProfile = user.academicMarks > 0 || user.stream || user.location;
+    
     const recommendations = scholarships.map(sch => {
       let score = 0;
-      if (user.academicMarks >= sch.minMarks) score += 40;
-      if (user.familyIncome <= sch.maxIncome) score += 30;
-      if (sch.eligibleStreams.includes(user.stream) || sch.eligibleStreams.length === 0) score += 20;
-      if (sch.eligibleLocations.includes(user.location) || sch.eligibleLocations.length === 0) score += 10;
+      
+      if (!hasProfile) {
+        score = 50;
+      } else {
+        if (user.academicMarks > 0 && user.academicMarks >= sch.minMarks) score += 40;
+        else if (user.academicMarks === 0) score += 20;
+        
+        if (user.familyIncome > 0 && user.familyIncome <= sch.maxIncome) score += 30;
+        else if (user.familyIncome === 0) score += 15;
+        
+        if (user.stream && (sch.eligibleStreams.includes(user.stream) || sch.eligibleStreams.length === 0)) score += 20;
+        else if (!user.stream || sch.eligibleStreams.length === 0) score += 10;
+        
+        if (user.location && (sch.eligibleLocations.includes(user.location) || sch.eligibleLocations.length === 0)) score += 10;
+        else if (!user.location || sch.eligibleLocations.length === 0) score += 5;
+      }
+      
+      if (user.stream && sch.eligibleStreams.length > 0 && !sch.eligibleStreams.includes(user.stream)) score -= 20;
       
       return { scholarship: sch, score };
     });
 
-    // Sort by highest score
-    recommendations.sort((a, b) => b.score - a.score);
+    const sorted = recommendations
+      .filter(r => r.score > 0)
+      .sort((a, b) => b.score - a.score);
     
-    res.json(recommendations);
+    res.json(sorted.slice(0, 20));
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
