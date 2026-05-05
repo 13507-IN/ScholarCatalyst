@@ -13,6 +13,8 @@ const StudentDashboard = () => {
   const [sopResult, setSopResult] = useState('');
   const [generating, setGenerating] = useState(false);
   const [copied, setCopied] = useState(false);
+  
+  const hasProfile = user?.academicMarks > 0 || user?.stream || user?.location;
 
   useEffect(() => {
     fetchRecommendations();
@@ -92,6 +94,11 @@ const StudentDashboard = () => {
         <div className="lg:col-span-2 space-y-8">
           <section>
             <h2 className="text-2xl font-bold mb-4 flex items-center gap-2"><Award className="text-brand-500"/> Recommended for You</h2>
+            {!hasProfile && (
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
+                <p className="text-amber-800 text-sm"><strong>Profile incomplete.</strong> Complete your <a href="/profile" className="underline font-medium">profile</a> to get better matches.</p>
+              </div>
+            )}
             <div className="space-y-4">
               {recommendations.length > 0 ? recommendations.map((item) => (
                 <div key={item.scholarship._id} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-brand-200 transition">
