@@ -25,8 +25,8 @@ const registerUser = async (req, res) => {
       role: role || 'student',
       schoolOrCollege: schoolOrCollege || '',
       phoneNumber: phoneNumber || '',
-      academicMarks: academicMarks || 0,
-      familyIncome: familyIncome || 0,
+      academicMarks: parseFloat(academicMarks) || 0,
+      familyIncome: parseFloat(familyIncome) || 0,
       stream: stream || '',
       location: location || ''
     });
@@ -37,6 +37,26 @@ const registerUser = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        profileComplete: user.profileComplete,
+        schoolOrCollege: user.schoolOrCollege,
+        phoneNumber: user.phoneNumber,
+        academicMarks: user.academicMarks,
+        familyIncome: user.familyIncome,
+        stream: user.stream,
+        location: user.location,
+        country: user.country,
+        city: user.city,
+        dateOfBirth: user.dateOfBirth,
+        gender: user.gender,
+        currentEducationLevel: user.currentEducationLevel,
+        yearOfStudy: user.yearOfStudy,
+        extracurriculars: user.extracurriculars,
+        achievements: user.achievements,
+        languages: user.languages,
+        careerGoals: user.careerGoals,
+        financialNeedStatement: user.financialNeedStatement,
+        linkedinUrl: user.linkedinUrl,
+        profilePhoto: user.profilePhoto,
         token: generateToken(user._id)
       });
     } else {
@@ -51,7 +71,7 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email }).select('+profileComplete +schoolOrCollege +academicMarks +stream +location +country +city +currentEducationLevel +careerGoals');
+    const user = await User.findOne({ email }).select('-password');
 
     if (user && (await bcrypt.compare(password, user.password))) {
       res.json({
@@ -61,19 +81,21 @@ const loginUser = async (req, res) => {
         role: user.role,
         profileComplete: user.profileComplete,
         schoolOrCollege: user.schoolOrCollege,
+        phoneNumber: user.phoneNumber,
         academicMarks: user.academicMarks,
+        familyIncome: user.familyIncome,
         stream: user.stream,
         location: user.location,
         country: user.country,
         city: user.city,
+        dateOfBirth: user.dateOfBirth,
+        gender: user.gender,
         currentEducationLevel: user.currentEducationLevel,
-        careerGoals: user.careerGoals,
+        yearOfStudy: user.yearOfStudy,
         extracurriculars: user.extracurriculars,
         achievements: user.achievements,
         languages: user.languages,
-        dateOfBirth: user.dateOfBirth,
-        gender: user.gender,
-        yearOfStudy: user.yearOfStudy,
+        careerGoals: user.careerGoals,
         financialNeedStatement: user.financialNeedStatement,
         linkedinUrl: user.linkedinUrl,
         profilePhoto: user.profilePhoto,
@@ -89,7 +111,7 @@ const loginUser = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id);
+    const user = req.user;
     
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
