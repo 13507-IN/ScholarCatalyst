@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
-import { BookOpen, MapPin, DollarSign, Award, Send, Copy, Check } from 'lucide-react';
+import { BookOpen, MapPin, DollarSign, Award, Send, Copy, Check, User, Calendar, Kanban, FolderOpen, Video, Search } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 const StudentDashboard = () => {
@@ -163,6 +164,36 @@ const StudentDashboard = () => {
         </div>
 
         <div className="space-y-8">
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+            <h2 className="text-xl font-bold mb-4">Quick Access</h2>
+            <div className="grid grid-cols-2 gap-3">
+              <Link to="/search" className="p-3 bg-gray-50 hover:bg-brand-50 rounded-lg border border-gray-100 hover:border-brand-200 transition text-center">
+                <Search size={20} className="mx-auto mb-1 text-brand-500"/>
+                <div className="text-xs font-medium">Search</div>
+              </Link>
+              <Link to="/profile" className="p-3 bg-gray-50 hover:bg-brand-50 rounded-lg border border-gray-100 hover:border-brand-200 transition text-center">
+                <User size={20} className="mx-auto mb-1 text-brand-500"/>
+                <div className="text-xs font-medium">Profile</div>
+              </Link>
+              <Link to="/calendar" className="p-3 bg-gray-50 hover:bg-brand-50 rounded-lg border border-gray-100 hover:border-brand-200 transition text-center">
+                <Calendar size={20} className="mx-auto mb-1 text-brand-500"/>
+                <div className="text-xs font-medium">Calendar</div>
+              </Link>
+              <Link to="/tracker" className="p-3 bg-gray-50 hover:bg-brand-50 rounded-lg border border-gray-100 hover:border-brand-200 transition text-center">
+                <Kanban size={20} className="mx-auto mb-1 text-brand-500"/>
+                <div className="text-xs font-medium">Tracker</div>
+              </Link>
+              <Link to="/documents" className="p-3 bg-gray-50 hover:bg-brand-50 rounded-lg border border-gray-100 hover:border-brand-200 transition text-center">
+                <FolderOpen size={20} className="mx-auto mb-1 text-brand-500"/>
+                <div className="text-xs font-medium">Documents</div>
+              </Link>
+              <Link to="/interview" className="p-3 bg-gray-50 hover:bg-brand-50 rounded-lg border border-gray-100 hover:border-brand-200 transition text-center">
+                <Video size={20} className="mx-auto mb-1 text-brand-500"/>
+                <div className="text-xs font-medium">Interview</div>
+              </Link>
+            </div>
+          </div>
+
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
             <h2 className="text-xl font-bold mb-4 flex items-center gap-2"><BookOpen className="text-purple-500"/> AI SOP Generator</h2>
             <p className="text-sm text-gray-600 mb-4">Describe your achievements and the scholarship you're applying for, and our AI will draft an essay.</p>
